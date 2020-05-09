@@ -41,3 +41,4 @@ tflearn==0.3.2
 urllib3==1.25.8
 Werkzeug==1.0.0
 wrapt==1.12.0
+gunicorn==19.9.0
