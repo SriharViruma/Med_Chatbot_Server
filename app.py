@@ -2,11 +2,11 @@ from flask import Flask
 from flask import request
 import psycopg2
 import json
-user = "postgres"
-dbpassword = "postgres"
-host = "127.0.0.1"
+user = "koztiptegxtyxo"
+dbpassword = "fd2a7cc709bc7f38cb7923954b139caa82a5a9bf4509a04c3ad86576497dff93"
+host = "ec2-50-17-21-170.compute-1.amazonaws.com"
 port = "5432"
-database = "postgres"
+database = "d8ffr2oj2m71si"
 app = Flask(__name__)
 #implemented with flask 
 @app.route('/chatbot/<name>')
