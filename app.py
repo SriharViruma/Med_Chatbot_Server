@@ -41,7 +41,8 @@ def hello_world(name):
 
 @app.route('/')
 def hel():
-    return 'Home route'
+	bot('hi')
+	return 'Home route'
 @app.route('/register/')
 def reg():
 	try:
@@ -53,14 +54,22 @@ def reg():
 		gender = request.args.get('gender')
 		age = request.args.get('age')
 		gp = request.args.get('gp')
+		final = None
 		connection = psycopg2.connect(user=user,password=dbpassword,host=host,port=port,database=database)
 		cursor = connection.cursor()
-		postgres_insert_query = """ INSERT INTO userdata (EMAIL, NAME, PASSWORD, HEIGHT, WEIGHT, GENDER, AGE, GP, CD) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-		record_to_insert = (email, name, password, int(height), int(weight), gender, int(age), gp, 'none')
-		cursor.execute(postgres_insert_query, record_to_insert)
-		connection.commit()
-		count = cursor.rowcount
-		print (count, "Record inserted successfully into mobile table")
+		select_query = "SELECT * from USERDATA where EMAIL= %s"
+		cursor.execute(select_query, (email,))
+		result = cursor.fetchall();
+		if len(result)==0:
+			postgres_insert_query = """ INSERT INTO userdata (EMAIL, NAME, PASSWORD, HEIGHT, WEIGHT, GENDER, AGE, GP, CD) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+			record_to_insert = (email, name, password, int(height), int(weight), gender, int(age), gp, 'none')
+			cursor.execute(postgres_insert_query, record_to_insert)
+			connection.commit()
+			final = "Successfully Registered"
+			count = cursor.rowcount
+			print (count, "Record inserted successfully into mobile table")
+		else:
+			final = "Email already exists"
 		if(connection):
 			print("Failed to insert record into mobile table", error)
 	finally:
@@ -68,7 +77,7 @@ def reg():
 			cursor.close()
 			connection.close()
 			print("PostgreSQL connection is closed")
-		return 'Successfully registered'
+		return final
 
 @app.route('/login/')
 def log():
@@ -129,13 +138,16 @@ def det():
 		select_query = "SELECT * from USERDATA where EMAIL= %s"
 		cursor.execute(select_query, (email,))
 		result = cursor.fetchall();
-		details={'name':result[0][1],'age':str(result[0][6]),'gender':result[0][5],'height':str(result[0][3]),'weight':str(result[0][4]),'gp':result[0][7],'cd':result[0][8]}
+		initial = 1
+		if(result[0][7]=='yes'):
+			initial = 0
 		print(result)
 	finally:
 		if(connection):
 			cursor.close()
 			connection.close()
 			print("PostgreSQL connection is closed")
+			details={'name':result[0][1],'age':str(result[0][6]),'gender':result[0][5],'height':str(result[0][3]),'weight':str(result[0][4]),'gp':result[0][7],'cd':result[0][8],'initial':initial}
 			return json.dumps(details)
 
 @app.route('/getSuggestions/')
@@ -160,7 +172,6 @@ def sug():
 			connection.close()
 			print("PostgreSQL connection is closed")
 			return json.dumps(details) 
-
 def bot(inp):
 	import nltk
 	from nltk.stem.lancaster import LancasterStemmer
@@ -254,5 +265,6 @@ def bot(inp):
 
 if __name__ == '__main__':
    app.run(debug= True)
+   
 
 
