@@ -41,7 +41,6 @@ def hello_world(name):
 
 @app.route('/')
 def hel():
-	bot('hi')
 	return 'Home route'
 @app.route('/register/')
 def reg():
