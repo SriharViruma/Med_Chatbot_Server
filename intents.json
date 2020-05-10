@@ -48,6 +48,31 @@
                 "patterns": ["fatigue,weightloss", "weightloss,fatigue", "loss in weight,fatigue"],
                 "responses": ["Severe acute malnutrition"],
                 "context_set": ""
+        },
+        {"tag": "disease8",
+                "patterns": ["over talking", "excessive talking", "delusions", "dilusions"],
+                "responses": ["Bipolar disorder"],
+                "context_set": ""
+        },
+        {"tag": "disease9",
+                "patterns": ["irregular periods", "irregular menstrual cycle", "weight gain,irregular periods", "irregular menstrual cycle,weight gain"],
+                "responses": ["Polycystic ovarien disease"],
+                "context_set": ""
+        },
+        {"tag": "disease10",
+                "patterns": ["seizure,confusion", "seizure,muscle spam", "confusion,muscle spam"],
+                "responses": ["Status epicepticus"],
+                "context_set": ""
+        },
+        {"tag": "disease11",
+                "patterns": ["cough,difficulty in breathing", "cough", "difficulty in breathing"],
+                "responses": ["Bronchial asthma"],
+                "context_set": ""
+        },
+        {"tag": "disease12",
+                "patterns": ["heat burn", "refutation odynophagia","heat burn, refutation odynophagia","refutation odynophagia,heat burn"],
+                "responses": ["Gastroesophageal reflux disease"],
+                "context_set": ""
         }
    ]
 }
