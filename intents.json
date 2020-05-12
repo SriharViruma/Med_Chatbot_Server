@@ -54,11 +54,6 @@
                 "responses": ["Bipolar disorder"],
                 "context_set": ""
         },
-        {"tag": "disease9",
-                "patterns": ["irregular periods", "irregular menstrual cycle", "weight gain,irregular periods", "irregular menstrual cycle,weight gain"],
-                "responses": ["Polycystic ovarien disease"],
-                "context_set": ""
-        },
         {"tag": "disease10",
                 "patterns": ["seizure,confusion", "seizure,muscle spam", "confusion,muscle spam"],
                 "responses": ["Status epicepticus"],
